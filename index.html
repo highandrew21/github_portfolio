@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Aguilar — Electrical Engineering Portfolio</title>
+<meta name="description" content="Portfolio of Andrew Aguilar, Electrical Engineering student at the University of Houston. Applied electromagnetics, RF, embedded systems, PCB assembly, PLC programming.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3c;
+  --text:#e8eaf0; --muted:#9aa2b1; --accent:#ffb347; --accent2:#4fd1c5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6}
+.mono{font-family:'IBM Plex Mono',monospace}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(15,17,21,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-weight:700;letter-spacing:.5px}
+.brand span{color:var(--accent)}
+nav ul{display:flex;gap:22px;list-style:none}
+nav ul a{color:var(--muted);font-size:.95rem}
+nav ul a:hover{color:var(--accent);text-decoration:none}
+
+/* hero */
+header{padding:90px 0 70px;border-bottom:1px solid var(--line);
+  background:radial-gradient(1000px 400px at 80% -10%,rgba(255,179,71,.08),transparent)}
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--accent);
+  border:1px solid var(--line);padding:4px 12px;border-radius:999px;margin-bottom:18px;background:var(--panel)}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);line-height:1.15;font-weight:700;max-width:800px}
+h1 .hl{color:var(--accent)}
+.hero p.lead{margin-top:18px;color:var(--muted);max-width:640px;font-size:1.1rem}
+.hero .cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 24px;border-radius:8px;font-weight:600;font-size:.95rem;transition:.2s}
+.btn-primary{background:var(--accent);color:#1a1206}
+.btn-primary:hover{filter:brightness(1.1);text-decoration:none}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+
+/* sections */
+section{padding:70px 0}
+.section-label{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:14px}
+.sub{color:var(--muted);max-width:640px;margin-bottom:36px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.skill-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;transition:.2s}
+.skill-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.skill-card h3{font-size:1.05rem;margin-bottom:8px}
+.skill-card p{color:var(--muted);font-size:.9rem}
+.skill-card .mono{color:var(--accent2);font-size:.8rem}
+
+/* projects */
+.project{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:44px}
+.project-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:26px 28px 0;flex-wrap:wrap}
+.project h3{font-size:1.4rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 28px 0}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--accent2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--panel2)}
+.project p.desc{padding:14px 28px 22px;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px;padding:0 4px 4px}
+.gallery img{width:100%;height:230px;object-fit:cover;transition:.25s;cursor:zoom-in;background:#0a0c10}
+.gallery img:hover{filter:brightness(1.1)}
+
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:100;cursor:zoom-out}
+#lb img{max-width:92vw;max-height:90vh;border-radius:6px}
+
+/* experience */
+.xp{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:20px}
+.xp .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.xp h3{font-size:1.15rem}
+.xp .when{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:.85rem}
+.xp ul{margin:12px 0 0 18px;color:var(--muted)}
+.xp li{margin-bottom:6px}
+
+/* contact */
+.contact{border-top:1px solid var(--line);text-align:center}
+.contact .big{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;margin:12px 0}
+footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+@media(max-width:640px){nav ul{gap:12px}nav ul a{font-size:.8rem}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand">AA<span>.</span>EE</div>
+  <ul>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#coursework">Coursework</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header><div class="wrap hero">
+  <span class="tag">// Electrical Engineering · Applied Electromagnetics</span>
+  <h1>From classroom theory to <span class="hl">hardware that works.</span></h1>
+  <p class="lead">Electrical Engineering student at the University of Houston concentrating in applied electromagnetics, with coursework in microwave engineering and microprocessors (A) and industry experience at JRC Scientific bringing up real hardware — Modbus RTU field devices, PLC control panels, and instrument PCBs. Aiming toward RF, embedded systems, and nanosystems design.</p></p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#projects">View Projects</a>
+    <a class="btn btn-ghost" href="mailto:andrewaguilar91021@gmail.com">Contact Me</a>
+  </div>
+</div></header>
+
+<section id="skills"><div class="wrap">
+  <div class="section-label">// 01 — Skills in Action</div>
+  <h2>What I Work With</h2>
+  <p class="sub">Hands-on experience across the full automation stack — from schematic to wired panel.</p>
+  <div class="skills">
+    <div class="skill-card"><h3>Control Panel Assembly</h3><p>Full industrial panel builds: DIN-rail layout, terminal blocks, wire dressing, labeling, and point-to-point verification.</p><img src="images/panel-building.jpg" alt="Control panel build" loading="lazy"></div>
+    <div class="skill-card"><h3>PLC Programming</h3><p>Allen-Bradley Micro820 development with Connected Components Workbench — firmware updates, ladder logic, and hardware debugging.</p><img src="images/plc-programing.jpg" alt="PLC programming" loading="lazy"></div>
+    <div class="skill-card"><h3>Schematic Design &amp; Review</h3><p>EPLAN electrical schematics, design review collaboration with senior engineers, and discrepancy resolution before manufacturing.</p><img src="images/epanel-skills.jpg" alt="EPLAN schematic review" loading="lazy"></div>
+    <div class="skill-card"><h3>Robotic Automation Planning</h3><p>Setup and integration planning for collaborative robot arms in automated test and handling workflows.</p><img src="images/automation-planing.jpg" alt="Collaborative robot arm" loading="lazy"></div>
+  </div>
+</div></section>
+
+<section id="projects" style="border-top:1px solid var(--line)"><div class="wrap">
+  <div class="section-label">// 02 — Projects</div>
+  <h2>Engineering Projects @ JRC Scientific</h2>
+  <p class="sub">Real hardware, shipped during my time as an Automation Technician intern.</p>
+
+  <div class="project">
+    <div class="project-head"><h3>Custom Multi-Station Scale Solution</h3><span class="when mono">Summer 2026</span></div>
+    <div class="chips"><span class="chip">Modbus RTU</span><span class="chip">HMI Touchscreen</span><span class="chip">Sensor Integration</span><span class="chip">Multi-channel I/O</span></div>
+    <p class="desc">Brought up a multi-station weighing system communicating over Modbus RTU — addressing devices on the RTU bus, integrating multi-channel scale sensors, and validating register reads against HMI displays during system-level testing.</p>
+    <div class="gallery">
+      <img src="images/custom-scale-solution-1.jpg" alt="Scale station assembly" loading="lazy">
+      <img src="images/custom-scale-solution-2.jpg" alt="Scale station assembly" loading="lazy">
+      <img src="images/custom-scale-solution-3.jpg" alt="Scale station assembly" loading="lazy">
+      <img src="images/custom-scale-solution-4.jpg" alt="Scale station assembly" loading="lazy">
+      <img src="images/custom-scale-solution-5.jpg" alt="Scale station assembly" loading="lazy">
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-head"><h3>AC/DC Leakage Meter</h3><span class="when mono">Summer 2026</span></div>
+    <div class="chips"><span class="chip">PCB Rework</span><span class="chip">Soldering</span><span class="chip">Enclosure Integration</span><span class="chip">Bench Testing</span></div>
+    <p class="desc">Assembled and bench-tested an AC/DC leakage measurement instrument — PCB soldering and rework, controller integration, enclosure wiring, and debug under magnification at the rework bench.</p>
+    <div class="gallery">
+      <img src="images/acdc-leakage-meter-1.jpg" alt="Leakage meter bench work" loading="lazy">
+      <img src="images/acdc-leakage-meter-2.jpg" alt="Leakage meter bench work" loading="lazy">
+      <img src="images/acdc-leakage-meter-3.jpg" alt="Leakage meter bench work" loading="lazy">
+      <img src="images/acdc-leakage-meter-4.jpg" alt="Leakage meter bench work" loading="lazy">
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-head"><h3>Safety Valve Controller</h3><span class="when mono">Summer 2026</span></div>
+    <div class="chips"><span class="chip">Allen-Bradley Micro820</span><span class="chip">Terminal Blocks</span><span class="chip">Wire Labeling</span><span class="chip">Safety Interlocks</span></div>
+    <p class="desc">Wired and assembled a safety valve control panel around an Allen-Bradley Micro820 PLC — labeled terminal blocks for power, solenoid, remote panel, DCS, limit switch, and analog I/O with dressed, routed harnesses.</p>
+    <div class="gallery">
+      <img src="images/safety-valve-controler-1.jpg" alt="Safety valve controller panel" loading="lazy">
+      <img src="images/safety-valve-controler-2.jpg" alt="Safety valve controller panel" loading="lazy">
+      <img src="images/safety-valve-controler-3.jpg" alt="Safety valve controller panel" loading="lazy">
+      <img src="images/safety-valve-controler-4.jpg" alt="Safety valve controller panel" loading="lazy">
+      <img src="images/safety-valve-controler-5.jpg" alt="Safety valve controller panel" loading="lazy">
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-head"><h3>Valve Position Sensor Board</h3><span class="when mono">Summer 2026</span></div>
+    <div class="chips"><span class="chip">Inductive Sensing</span><span class="chip">PCB Prototyping</span><span class="chip">Calibration</span><span class="chip">Bench Validation</span></div>
+    <p class="desc">Prototyped and validated an inductive valve position sensing board — bench calibration against a mechanical fixture and measurement of sensor response for closed-loop valve feedback.</p>
+    <div class="gallery">
+      <img src="images/valve-posiotion-project-1.jpg" alt="Valve position sensor board" loading="lazy">
+      <img src="images/valve-posiotion-project-2.jpg" alt="Valve position sensor board" loading="lazy">
+    </div>
+  </div>
+
+</div></section>
+
+<section id="coursework" style="border-top:1px solid var(--line)"><div class="wrap">
+  <div class="section-label">// 03 — Coursework</div>
+  <h2>Relevant Coursework</h2>
+  <p class="sub">University of Houston, B.S. Electrical Engineering — concentration in Applied Electromagnetics.</p>
+  <div class="skills">
+    <div class="skill-card"><h3>RF &amp; Electromagnetics</h3><p class="mono">ECE 3317 · ECE 5317 · ECE 5113</p><p>Applied Electromagnetic Waves (B) · Microwave Engineering + Lab (in progress)</p></div>
+    <div class="skill-card"><h3>Embedded &amp; Digital</h3><p class="mono">ECE 3436 · ECE 3441 · ECE 3331</p><p>Microprocessor Systems (A) — ARM assembly, memory-mapped I/O · Digital Logic Design (B+) · Programming Applications in ECE (A)</p></div>
+    <div class="skill-card"><h3>Nanoscience &amp; Devices</h3><p class="mono">ECE 4339 · ECE 4119</p><p>Physical Principles of Solid State Devices + Lab (in progress)</p></div>
+    <div class="skill-card"><h3>Circuits &amp; Signals</h3><p class="mono">ECE 2201 · ECE 2202 · ECE 3337 · ECE 3355 · ECE 3155</p><p>Circuit Analysis I &amp; II · Signals and Systems Analysis · Electronics + Lab</p></div>
+  </div>
+</div></section>
+
+<section id="experience" style="border-top:1px solid var(--line)"><div class="wrap">
+  <div class="section-label">// 04 — Experience</div>
+  <h2>Where I've Worked</h2>
+  <div class="xp">
+    <div class="row"><h3>Automation Technician (Electrical Engineering Intern) — JRC Scientific</h3><span class="when">09/2025 – Present</span></div>
+    <ul>
+      <li>Designed and assembled automated control boxes/panels for actuators and valves per engineering specifications.</li>
+      <li>Brought up a multi-station scale system communicating over Modbus RTU, integrating field devices with HMI displays.</li>
+      <li>Wired a safety valve control panel around an Allen-Bradley Micro820 PLC with labeled, dressed terminal blocks.</li>
+      <li>Programmed and updated Micro820 firmware in Connected Components Workbench; debugged I/O on the bench.</li>
+      <li>Soldered and reworked PCBs for a leakage measurement instrument; performed enclosure integration and testing.</li>
+      <li>Applied microprocessor systems concepts (ARM assembly, memory-mapped I/O) to debugging embedded controllers inside instruments.</li>
+      <li>Applied circuit analysis and signal processing coursework (Thevenin/Norton, Laplace) directly to bench troubleshooting and test validation.</li>
+      <li>Read and interpreted schematic diagrams and EPLAN drawings; reviewed designs with senior engineers to resolve discrepancies and prevent manufacturing errors.</li>
+    </ul>
+  </div>
+  <div class="xp">
+    <div class="row"><h3>Customer Service / Sales Advisor / Marketing Specialist — Best Buy</h3><span class="when">08/2021 – Present</span></div>
+    <ul>
+      <li>Assisted customers with device setup, troubleshooting, and configuration for seamless integration with existing systems.</li>
+      <li>Maintained up-to-date knowledge of emerging technologies and communicated technical advantages to all audiences.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <div class="section-label">// 05 — Contact</div>
+  <div class="big">Let's build something.</div>
+  <p class="sub" style="margin:0 auto 26px">Open to internships and co-ops in RF/microwave engineering, embedded systems, and nanosystems design.</p>
+  <a class="btn btn-primary" href="mailto:andrewaguilar91021@gmail.com">Email Me</a>
+</div></section>
+
+<footer>© 2026 Andrew Aguilar · Built with plain HTML/CSS · Hosted on GitHub Pages</footer>
+
+<div id="lb"><img id="lbimg" src="" alt=""></div>
+<script>
+document.querySelectorAll('.gallery img, .skill-card img').forEach(function(im){
+  im.addEventListener('click',function(){
+    var lb=document.getElementById('lb');
+    document.getElementById('lbimg').src=im.src.replace('images/','images/').src;
+    document.getElementById('lbimg').src=im.src;
+    lb.style.display='flex';
+  });
+});
+document.getElementById('lb').addEventListener('click',function(){this.style.display='none'});
+</script>
+</body>
+</html>
