@@ -236,6 +236,50 @@ document.querySelectorAll('.gallery img, .skill-card img').forEach(function(im){
   });
 });
 document.getElementById('lb').addEventListener('click',function(){this.style.display='none'});
+
+* Copy button: try the modern clipboard API, fall back to execCommand,
+   and if both are blocked just select the text so a manual copy works. */
+(function(){
+  var field=document.getElementById('mailField');
+  var btn=document.getElementById('copyBtn');
+  var toast=document.getElementById('toast');
+  if(!field||!btn) return;
+  var t;
+
+  function showToast(msg){
+    toast.textContent=msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t=setTimeout(function(){toast.classList.remove('show')},2200);
+  }
+
+  function selectAll(){
+    try{ field.focus({preventScroll:true}); }catch(e){ field.focus(); }
+    try{ field.setSelectionRange(0, field.value.length); }catch(e){}
+  }
+
+  function legacyCopy(){
+    try{ selectAll(); return document.execCommand('copy'); }catch(e){ return false; }
+  }
+
+  function fallback(){
+    if(legacyCopy()){ showToast('Copied'); }
+    else{ selectAll(); showToast('Selected — press Ctrl+C'); }
+  }
+
+  btn.addEventListener('click', function(){
+    var text=field.value;
+    selectAll();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ showToast('Copied'); }).catch(fallback);
+    }else{
+      fallback();
+    }
+  });
+
+  field.addEventListener('focus', selectAll);
+  field.addEventListener('click', selectAll);
+})();
 </script>
 </body>
 </html>
